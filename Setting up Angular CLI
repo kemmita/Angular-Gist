@@ -1,0 +1,8 @@
+0. You will need Node.js before hand
+1. open gitbash and run npm install -g @angular/cli
+2. then make sure you are in the correct directory for where you wish to create your project
+3. run ng new examplename
+4.then cd into your project
+5.then run code . and the project will magically apear in vs code :)
+6. If you want run the app on a browser run  ng serve --open
+7. to stop it from running run ctrl c

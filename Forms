@@ -1,0 +1,18 @@
+1. go to app.module.ts and import forms
+import { FormsModule } from '@angular/forms';
+ FormsModule
+ 
+ 
+ 2.now go to your hgtml componenet
+ //asign your form a angular id and a ngSubmit funciton
+ <form #loginForm="ngForm" class="navbar-form navbar-right" (ngSubmit)="login()">
+        <div class="form-group">
+        with angular forms we must use a name for the submission and use ngModel for 2 way data binidng 
+          <input type="text" placeholder="Email" class="form-control" required name="username" [(ngModel)]="model.username">
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" class="form-control" required name="password" [(ngModel)]="model.password">
+        </div>
+        //using angular we can have the button inactive if the form state is invalid
+        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-success">Sign in</button>
+ </form>

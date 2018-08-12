@@ -1,0 +1,23 @@
+1.we create multiple variables and one object
+export class UserComponent {
+  //properties
+  firstName = "Erik";
+  lastName = "Doe";
+  age = 30;
+  address = {
+    street: "52nd street",
+    city: "St Paul",
+    state: "MN"
+  }
+  constructor(){
+      
+  }
+}
+
+2. now in the html file we will use string interpolation
+<h1 class="main">{{ firstName }} {{ lastName }}</h1>
+  <h2>Age: {{age}}</h2>
+  <h3>Address</h3>
+  <h4>{{address.street}}</h4>
+  <h4>{{address.city}}</h4>
+  <h4>{{address.state}}</h4>

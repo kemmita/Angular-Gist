@@ -1,0 +1,27 @@
+1. go to app.modules 
+imports: [
+
+    BsDatepickerModule.forRoot()
+  ],
+
+2.go to angular-cli.json
+    "styles": [
+        "styles.css",
+        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+      ],
+
+3. go to component.ts file
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+
+bsConfig: Partial<BsDatepickerConfig>;
+  constructor(private authService: AuthService, private alertify: AlertifyService, private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.bsConfig = {
+  containerClass: 'theme-red'
+    };
+   
+  }
+
+4. go to component.html
+<input class="form-control" type="text" bsDatepicker [bsConfig]="bsConfig" placeholder="Date of Birth" formControlName="dateOfBirth">

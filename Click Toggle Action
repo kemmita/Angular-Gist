@@ -1,0 +1,64 @@
+1. in models and in the Users model we add a bollean called hide and set it to true
+
+2. in the ts file we add the hide property to the people we have hard coded in this ts file, then go to line 52
+  constructor() { }
+
+  ngOnInit() {
+   
+      this.users = [
+        {
+          firstName: 'John',
+          lastName: 'Doe',
+          age: 70,
+          address: {
+            street: '50 Main st',
+            city: 'Boston',
+            state: 'MA'
+          },
+          hide: true
+    
+        },
+        {
+          firstName: 'Kevin',
+          lastName: 'Johnson',
+          age: 34,
+          address: {
+            street: '20 School st',
+            city: 'Lynn',
+            state: 'MA'
+          },
+            hide: true
+        },
+        {
+          firstName: 'Karen',
+          lastName: 'Williams',
+          age: 26,
+          address: {
+            street: '55 Mill st',
+            city: 'Miami',
+            state: 'FL'
+          },
+          hide: true
+   
+        }
+      ];
+
+      this.loaded = true;
+  }
+
+  addUser(user: User) {
+    this.users.push(user);
+  }
+  //when the button is pushed we take a value of User and set user.hide to user not hide, if we set the boolean to false 
+  //we would not be able to toggle it shut.
+  toggleHide(user: User){
+   user.hide = !user.hide;
+  }
+  
+ 3.html file, notice how the param is the exact same as in the ts file above
+ <button class="btn btn-xs" (click)="toggleHide(user)">toggle</button>
+ 
+ 4. this could also be completed like this, eliminating the ts file
+  <button class="btn btn-xs" (click)="user.hide = !user.hide">toggle</button>
+  
+

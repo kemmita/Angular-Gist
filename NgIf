@@ -1,0 +1,72 @@
+1. Typescript for the template
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User'
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+users: User[];
+showExtended: boolean = true;
+
+  constructor() { }
+
+  ngOnInit() {
+    this.users = [
+      {
+        firstName: "Russell",
+        lastName: "Kemmit",
+        age: 28,
+        address:{
+          street: "256th",
+          city: "St Paul",
+          state: "MN"
+        }
+      },
+      {
+        firstName: "Andrew",
+        lastName: "Beven",
+        age: 45,
+        address:{
+          street: "April Konig",
+          city: "Bayern",
+          state: "DE"
+        }
+      },
+      {
+        firstName: "Samson",
+        lastName: "Liften",
+        age: 21,
+        address:{
+          street: "851",
+          city: "MInneapolis",
+          state: "MN"
+        }
+      }
+      
+    ];
+  }
+
+}
+
+2.html template
+<h2>Users</h2>
+//ng-template will be what will happen if the else is exectued, it will be called by its id, make sure to use html tags within the
+//ng-template tags
+<ng-template #noUsers><h2>No User was found</h2></ng-template>
+//this reads, if users in storage is greater than 0 the for loop will run and the users names will print
+//else the noUsers ng-template from above will run
+<ul *ngIf="users.length > 0; else noUsers">
+  <li *ngFor="let user of users">
+    {{user.lastName}}, {{user.firstName}}
+  </li>
+</ul>
+
+
+<h2>Users Adress</h2>
+<ul *ngIf="showExtended">
+  <li *ngFor="let user of users">
+    {{user.address.street}}, {{user.address.city}}, {{user.address.state}}
+  </li>
+</ul>

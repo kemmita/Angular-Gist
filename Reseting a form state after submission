@@ -1,0 +1,62 @@
+1.the submit button will be disabled until the form has been altered, but then after that we want to reset the button back to disabled
+<div class="panel-footer">
+          <button [disabled]="!editForm.dirty" class="btn btn-success btn-block" form="editForm">Save Changes</button>
+        </div>
+    
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Edit Profile">
+          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
+          <h4>Description</h4>
+         <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+          <h4>Looking For:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
+          <h4>Interests:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
+          <h4>Location:</h4>
+          <div class="form-inline">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" name="city"
+            [(ngModel)]="user.city">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" name="country"
+            [(ngModel)]="user.country">
+          </div>
+        </form>
+
+2. using the Angular form id we created on line 12 #editForm we will now referenc that in the ts file
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User } from '../../_models/User';
+import { ActivatedRoute } from '@angular/router';
+import { AlertifyService } from '../../_services/alertify.service';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-member-edit',
+  templateUrl: './member-edit.component.html',
+  styleUrls: ['./member-edit.component.css']
+})
+export class MemberEditComponent implements OnInit {
+user: User;
+//using the @ViewChild function we can call on the angular form id we created in the html template
+@ViewChild('editForm') editForm: NgForm;
+
+  constructor(private route: ActivatedRoute, private alertify: AlertifyService) { }
+
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
+  }
+
+
+  updateUser() {
+    console.log(this.user);
+    this.alertify.success('User Updated');
+//when the ngSubmit is clicked, the form will be reset, if the user object is not passed back, the user data will be lost
+    this.editForm.reset(this.user);
+  }
+}

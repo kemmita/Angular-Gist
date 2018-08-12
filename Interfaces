@@ -1,0 +1,107 @@
+1. go to app and create a folder called models and in here we will create our User interface
+//if we wish to make a property nullable add a question markto the variable
+export interface User {
+  firstName: string,
+  lastName: string,
+  age?: number,
+  address?:{
+  street?: string,
+  city: string,
+  state: string
+  }
+}
+2. Now go to our user.componenet.ts file
+import { Component, OnInit } from '@angular/core';
+//below we import the interface
+import { User } from '../../models/User';
+@Component({
+  // the selector is what we will use to call it in the html tag
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
+
+})
+
+export class UserComponent {
+  //below we call the interface
+  user: User;
+
+  //and within the construcvtor here we assign values to the variables within the interface
+  constructor(){
+    }
+    
+  ngOnInit(){
+  this.user = {
+        firstName: "Russell",
+        lastName: "Kemmit",
+        age: 28,
+        address:{
+          street: "256th",
+          city: "St Paul",
+          state: "MN"
+        }
+      }
+  }
+
+  
+  }
+
+
+**below we use ngFor to loop through multiple users**
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User'
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+users: User[];
+  constructor() { }
+
+  ngOnInit() {
+    this.users = [
+      {
+        firstName: "Russell",
+        lastName: "Kemmit",
+        age: 28,
+        address:{
+          street: "256th",
+          city: "St Paul",
+          state: "MN"
+        }
+      },
+      {
+        firstName: "Andrew",
+        lastName: "Beven",
+        age: 45,
+        address:{
+          street: "April Konig",
+          city: "Bayern",
+          state: "DE"
+        }
+      },
+      {
+        firstName: "Samson",
+        lastName: "Liften",
+        age: 21,
+        address:{
+          street: "851",
+          city: "MInneapolis",
+          state: "MN"
+        }
+      }
+      
+    ]
+  }
+
+}
+
+
+
+<h2>Users</h2>
+<ul>
+  <li *ngFor="let user of users">
+    {{user.firstName}}
+  </li>
+</ul>

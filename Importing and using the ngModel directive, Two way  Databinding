@@ -1,0 +1,20 @@
+1. Go to app.module.ts and import the FormsModule so that we can use the ngModel directive.
+
+import { FormsModule } from '@angular/forms';
+
+ imports: [
+ FormsModule
+  ],
+  
+2. Inour component's .ts file declare a new variable called name 
+
+export class AppComponent {
+  title = 'TestApp01';
+  name: string;
+}
+
+3. In the html file we will now use the ngModel directive by attaching it to our input field.
+
+// whatever is typed into this input will display automatically without pause when typing. 
+<input type="text" [(ngModel)]="name"/>
+<p>{{name}}</p>

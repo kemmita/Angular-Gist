@@ -1,0 +1,7 @@
+1.go to the terminal and run ng g c components/users make sure you have the componenets file already created and /users is just 
+the name of the component you wish to create
+
+2.go to the app.component.html and replace the tag with the new selector name
+<h1>Angular App</h1>
+<app-users></app-users>
+

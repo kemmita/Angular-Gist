@@ -1,0 +1,11 @@
+1. run npm install ngx-bootstrap --save
+
+2.go to app.module
+import { BsDropdownModule } from 'ngx-bootstrap';
+
+ imports: [
+    BrowserModule,
+    HttpModule,
+    FormsModule,
+    BsDropdownModule.forRoot()
+  ],

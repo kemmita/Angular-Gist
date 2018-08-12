@@ -1,0 +1,42 @@
+export class UserComponent {
+  //properties and their types
+  firstName: string;
+  lastName: string;
+  age: number;
+  address;
+  foo: any;
+  dead: boolean;
+
+  //we use the constructor to initialize the variables above
+  constructor(){
+    this.firstName ="Russell";
+    this.lastName = "Kemmit";
+    this.age = 28;
+    this.foo = "kevin";
+    this.dead = true;
+    this.address = {
+      street: "52nd street",
+      city: "St Paul",
+      state: "MN"
+    }
+  }
+}
+
+
+**using variables within methods**
+export class UserComponent {
+  //properties and their types
+  ein: number;
+  zwei: number;
+  
+  //we use the constructor to initialize the variables above
+  constructor(){
+    this.ein = 12;
+    this.zwei = 10;
+    console.log(this.addNumber(this.ein, this.zwei));
+  }
+
+  addNumber(num1: number, num2: number){
+    return num1 + num2;
+  }
+}

@@ -1,0 +1,23 @@
+1. /src/index.html this fille will produce the html file you wish to show
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TestApp01</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  // The app-root tag is grabing the html file that is nested within /src/app/app.component.html
+  <app-root></app-root>
+</body>
+</html>
+
+
+2. /src/style.css will produce gloabl css styling to all component files.
+
+
+

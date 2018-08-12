@@ -1,0 +1,58 @@
+1. to generate a service run ng g s services/log --module=app.module
+that command generated a folder called services and a file of log add the "--module=app.module" so we do not need to do it manually
+
+2. now in your service file add an array
+import { Injectable } from '@angular/core';
+import { Log } from '../models/Log';
+@Injectable()
+export class LogService {
+//Log format is being grabbed from a model see line 6
+logs: Log[];
+  constructor() {
+    this.logs = [
+      {
+        id: '1',
+        text: 'Generated componenets',
+        date:  new Date('12/26/2017 12:54:23')
+      },
+      {
+        id: '2',
+        text: 'added bootstrap',
+        date:  new Date('12/28/2017 12:54:10')
+      },
+       {
+
+       id: '3',
+        text: 'added .NET',
+        date:  new Date('1/26/2018 08:54:23')
+       }
+   
+    ]
+   }
+
+   getLogs(){
+     return this.logs;
+   }
+
+}
+
+
+3. we then go to our ts class and import and use dependency injection to use the service
+import { Component, OnInit } from '@angular/core';
+import { Log } from '../../models/Log';
+import {LogService}  from '../../services/log.service';
+@Component({
+  selector: 'app-logs',
+  templateUrl: './logs.component.html',
+  styleUrls: ['./logs.component.css']
+})
+export class LogsComponent implements OnInit {
+  logs: Log[];
+  constructor(private logService: LogService) { }
+
+  ngOnInit() {
+    this.logs = this.logService.getLogs();
+  }
+
+}
+

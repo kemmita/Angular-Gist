@@ -1,0 +1,69 @@
+1. in the correct path run command npm install ngx-gallery --save
+2.In app.modules add the import
+
+import { NgxGalleryModule } from 'ngx-gallery';
+
+
+  imports: [
+    NgxGalleryModule
+  ],
+  
+
+3.go to the component you wish to use
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../_services/User.service';
+import { AlertifyService } from '../../_services/alertify.service';
+import { User } from '../../_models/User';
+import { ActivatedRoute } from '@angular/router';
+import { NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gallery';
+import { NgxGalleryImage } from 'ngx-gallery';
+
+@Component({
+  selector: 'app-member-detail',
+  templateUrl: './member-detail.component.html',
+  styleUrls: ['./member-detail.component.css']
+})
+export class MemberDetailComponent implements OnInit {
+user: User;
+galleryOptions: NgxGalleryOptions[];
+galleryImages: NgxGalleryImage[];
+  constructor(private userservice: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
+    this.galleryOptions = [
+      {
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false
+      }
+    ];
+    this.galleryImages = this.getImages();
+  }
+
+  getImages() {
+    const imgUrls = [];
+    for (let i = 0; i < this.user.photos.length; i++) {
+        imgUrls.push({
+          small: this.user.photos[i].url,
+          medium: this.user.photos[i].url,
+          big: this.user.photos[i].url,
+          description: this.user.photos[i].descriptiuon
+        });
+    }
+    return imgUrls;
+  }
+
+
+
+}
+
+4.now use the component html
+<tab heading="Photos">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </tab>

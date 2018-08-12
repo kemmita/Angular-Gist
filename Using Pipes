@@ -1,0 +1,10 @@
+1. the code below will display date time data in its raw format
+<strong>Last Active:</strong>
+//by adding the pipe "|" we can alter the appearance of the date by using specific keywords such as medium
+            <p>{{user.lastActive | date: 'medium'}}</p>
+          </div>
+
+          <div>
+            <strong>Member Since:</strong>
+            <p>{{user.created | date: 'mediumDate'}}</p>
+          </div>

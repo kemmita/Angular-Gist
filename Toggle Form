@@ -1,0 +1,39 @@
+1. in our ts file set a property showUserForm to boolean and set that to false so that the form is hidden at first.
+export class UsersComponent implements OnInit {
+  showUserForm: boolean = false;
+  constructor() { }
+  }
+
+2.Now in our html file lets setup a method with in the click method if clicked the form will appear below and
+//since we are using !showUserForm it will toggle open and close when clicked
+<button (click)="showUserForm = !showUserForm" class="btn btn-dark mb-3">Add User</button>
+//below you see we use an ngIf to check if show user form property is set to true, if it is the form will appear
+<div class="card card-body mb-3" *ngIf="showUserForm">
+<form>
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" class="form-control" name="firstName">
+  </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" class="form-control" name="lastName">
+  </div>
+  <div class="form-group">
+    <label>Age</label>
+    <input type="number" class="form-control" name="age">
+  </div>
+  <div class="form-group">
+    <label>Street Address</label>
+    <input ype="text" class="form-control" name="address">
+  </div>
+  <div class="form-group">
+    <label>City</label>
+    <input type="text" class="form-control" name="city">
+  </div>
+  <div class="form-group">
+    <label>State</label>
+    <input  type="text" class="form-control" name="state">
+  </div>
+  <button  class="btn  mb-3 btn-info btn-block">Add New User</button>
+</form>
+</div>

@@ -1,0 +1,23 @@
+1.the dirty function will allow us to keep some things hidden or blocked until a form has been altered
+2.for example, we do not want the user to be able to save changes until the form has actually been altered in some way
+
+3. first create a Angular form and assign it an Angular form id 
+<form #editForm="ngForm">
+          <h4>Description</h4>
+         <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+          <h4>Looking For:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
+          <h4>Interests:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
+          <h4>Location:</h4>
+          <div class="form-inline">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" name="city"
+            [(ngModel)]="user.city">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" name="country"
+            [(ngModel)]="user.country">
+          </div>
+        </form>
+ 4. now when this form is altered we will use the dirty function to let the button become clickable
+  <button [disabled]="!editForm.dirty" class="btn btn-success btn-block">Save Changes</button>

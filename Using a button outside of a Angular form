@@ -1,0 +1,31 @@
+
+
+1.in order for the button to work outside of the Angular form we must assign the form a html id    id="editForm"
+    <div class="col-sm-8">
+      <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Edit Profile">
+          <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
+          <h4>Description</h4>
+         <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+          <h4>Looking For:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
+          <h4>Interests:</h4>
+          <textarea name="introduction"  rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
+          <h4>Location:</h4>
+          <div class="form-inline">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" name="city"
+            [(ngModel)]="user.city">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" name="country"
+            [(ngModel)]="user.country">
+          </div>
+        </form>
+
+2.now take that html id and set the form Attribute equal to the id name we created above 
+     <div class="panel-footer">
+          <button [disabled]="!editForm.dirty" class="btn btn-success btn-block" form="editForm">Save Changes</button>
+        </div>
+      </div>
+    </div>

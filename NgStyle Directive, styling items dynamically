@@ -1,0 +1,20 @@
+1. Ts file
+
+export class ServerComponent implements OnInit {
+// Set our variable initialy to offline
+  serverStatus: string = 'offline';
+  constructor() {
+// In our constructor set our variable to either offline or online
+    this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
+  }
+// Create a method that returns a css color property 
+  getColor() {
+    return this.serverStatus === 'online' ? 'green' : 'red';
+  }
+}
+
+
+2. Html file
+
+//using the ngStyle directive, we set the backgroundColor using th method we created above.
+<p [ngStyle]="{backgroundColor: getColor()}">{{ serverStatus }}</p>

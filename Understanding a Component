@@ -1,0 +1,31 @@
+1. After you have created a compoenet, you will see a number of files that were generated.
+2. The only ones we will concern ourselves with our the .html, .css, and .ts files
+3. Html and css files are self explanitory.
+4. The ts file below is the basics we need in order to use a component.
+
+import { Component } from '@angular/core';
+
+@Component({
+  // The selector is the html tag that will be used to call on this componenet in the app.component.html file
+  selector: 'app-server',
+  templateUrl: './server.component.html'
+})
+export class ServerComponent {
+
+}
+
+
+5. As of right now the selector declared above is being used in the src/app/app.component file.
+
+<app-server></app-server>
+ 
+
+6. Always verify that your component has been registered in the /src/app/app.modules.ts file, or it will not work.
+
+import { ServerComponent } from './server/server.component';
+
+ declarations: [
+    ServerComponent
+  ],
+
+7. The compoenet folder should be placed within the src/app directory

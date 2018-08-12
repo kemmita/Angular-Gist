@@ -1,0 +1,77 @@
+1.The create a new folder in app called _guard, inside of this folder create a ts file called auth_guard
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+//auth service was created already and we are referencing the loggediun method below
+  constructor(private authService: AuthService, private router: Router, private alertify: AlertifyService) {}
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.authService.loggedin()) {
+      return true;
+    } else {
+      this.alertify.error('You need to be loggedin to access this area');
+      this.router.navigate(['/home']);
+      return false;
+    }
+
+  }
+}
+
+
+2.then in app.modules.ts import the routes file and AuthGuard
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
+import { AuthGuard } from './_guards/auth.guard';
+
+
+ imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+    providers: [
+    AuthService,
+    AlertifyService,
+    AuthGuard
+  ],
+  
+  
+
+3.then create a new file in app called routes.ts
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { MemberListComponent } from './member-list/member-list.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ListsComponent } from './lists/lists.component';
+import { AuthGuard } from './_guards/auth.guard';
+ export const appRoutes: Routes = [
+  {path: 'home', component: HomeComponent},
+  // any path within these brackets will be protected and cannot be seen without being loggedin
+ {
+   path: '',
+   runGuardsAndResolvers: 'always',
+   canActivate: [AuthGuard],
+   children: [
+    {path: 'members', component: MemberListComponent},
+    {path: 'messages', component: MessagesComponent},
+    {path: 'lists', component: ListsComponent}
+   ]
+ },
+  // this must be at the bottom of the routing list
+  {path: '**', redirectTo: 'home', pathMatch: 'full'}
+ ];
+
+ 
+ 4. then in app.component.html us a router outlet tag
+ <app-nav></app-nav>
+
+<router-outlet></router-outlet>
+
+5. now we can use the routes in our html
+    <ul class="nav navbar-nav" *ngIf="loggedIn()">
+          <li><a [routerLink]="['/members']" routerLinkActive="router-link-active" >Matches</a></li>
+          <li><a [routerLink]="['/lists']" routerLinkActive="router-link-active" >Lists</a></li>
+          <li><a [routerLink]="['/messages']" routerLinkActive="router-link-active" >Messages</a></li>
+      </ul>

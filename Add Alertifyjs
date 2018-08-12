@@ -1,0 +1,100 @@
+this is an api we can use to create popup messages 
+
+1.go to http://alertifyjs.com/ and then click on getting started
+
+2.Install with NPM
+
+npm install alertifyjs --save
+
+3.then in angularcli
+ "styles": [
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/alertifyjs/build/css/alertify.min.css",
+        "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css"
+
+      ],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/alertifyjs/build/alertify.min.js"
+      ],
+      
+      
+4.app.modules.ts make as provider
+
+
+
+import { AlertifyService } from './_services/alertify.service';
+
+
+providers: [
+    AuthService,
+    AlertifyService
+  ],
+  
+  
+5.create a alertify service
+import { Injectable } from '@angular/core';
+declare let alertify: any;
+@Injectable()
+export class AlertifyService {
+
+constructor() { }
+   confirm(message: string, okCallback: () => any) {
+     alertify.confirm(message, function(e) {
+        if (e) {
+          okCallback();
+        } else {
+
+        }
+     });
+   }
+   success(message: string) {
+     alertify.success(message);
+   }
+   error(message: string) {
+    alertify.error(message);
+  }
+  warning(message: string) {
+    alertify.warning(message);
+  }
+  message(message: string) {
+    alertify.message(message);
+  }
+}
+
+6. now use the service from above in your componenets like below, you must import the service, include it within your constructor
+and then call it in the specified method
+
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterComponent implements OnInit {
+model: any = {};
+@Output()cancelRegister = new EventEmitter();
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
+
+  ngOnInit() {
+  }
+  register() {
+    this.authService.register(this.model).subscribe(() => {
+        this.alertify.success('registration successful');
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+  cancel() {
+    this.cancelRegister.emit(false);
+    this.alertify.warning('Registartion Canceled');
+  }
+
+}

@@ -1,0 +1,17 @@
+Underscore is used to help itterate through arrays
+
+1. while ng serve is already running, open up another terminal and run npm install underscore --save
+
+2.then run npm install @types/underscore --save
+
+
+3.npm install @types/underscore --save-dev
+
+4. in your component.ts
+
+import * as _ from 'underscore';
+
+
+    // using underscore js we use the _.findWhere method to itterate through an array. first value provided is the name of the arry
+    // and the second is the key value pair.
+        this.currentMain = _.findWhere(this.photos, {isMain: true});

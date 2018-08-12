@@ -1,0 +1,63 @@
+1. we begin in our html file for our component
+//see the click function and that it takes a method of addUser, we are adding dummy data as we are not connected to a dataabase
+<button (click)="addUser({firstName: 'Mary', lastName: 'Jackson'})" class="btn btn-block mb-3">Add New User</button>
+2. now in our typescript we will implement the functionality
+import { Component, OnInit } from '@angular/core';
+
+import { User } from '../../models/User'; 
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+  users: User[];
+  constructor() { }
+
+  ngOnInit() {
+   
+      this.users = [
+        {
+          firstName: 'John',
+          lastName: 'Doe',
+          age: 70,
+          address: {
+            street: '50 Main st',
+            city: 'Boston',
+            state: 'MA'
+          },
+    
+        },
+        {
+          firstName: 'Kevin',
+          lastName: 'Johnson',
+          age: 34,
+          address: {
+            street: '20 School st',
+            city: 'Lynn',
+            state: 'MA'
+          },
+    
+        },
+        {
+          firstName: 'Karen',
+          lastName: 'Williams',
+          age: 26,
+          address: {
+            street: '55 Mill st',
+            city: 'Miami',
+            state: 'FL'
+          },
+   
+        }
+      ];
+
+
+  }
+
+  addUser(user: User) {
+    this.users.push(user);
+  }
+  
+}

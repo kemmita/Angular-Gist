@@ -1,0 +1,33 @@
+1. in your _guards folder create a new file 
+import { Injectable } from '@angular/core';
+import { CanDeactivate } from '@angular/router';
+import { MemberEditComponent } from '../members/member-edit/member-edit.component';
+
+@Injectable()
+export class PreventUnsavedChanges implements CanDeactivate <MemberEditComponent> {
+  canDeactivate(component: MemberEditComponent) {
+  //checking if the form form the MemberEditComponent component, we will display a message if a user trys to leave without saving their data
+    if (component.editForm.dirty) {
+      return confirm('Are you sure you want to continue? Any unsaved changes will be lost!');
+    }
+  }
+}
+
+2. in app.modules import and add to providers the file we created above
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+
+
+
+
+@NgModule({
+GalleryModule
+  ],
+  providers: [
+
+    PreventUnsavedChanges
+  ],
+  
+  
+  3.now in routes use the canDeactivate method and specify the new file we created above.
+  {path: 'member/edit', component: MemberEditComponent,
+    resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},

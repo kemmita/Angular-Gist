@@ -1,0 +1,86 @@
+1. got to app.modules and import 
+ imports: [
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  
+2. now in our ts file
+
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+//we create a new object registerForm and make it a type of ForGroup, do not forget to import these above. 
+registerForm: FormGroup;
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
+
+//now on ngonint set the different form fields to new formcontrols 
+  ngOnInit() {
+ this.registerForm = new FormGroup({
+   username: new FormControl(),
+   password: new FormControl(),
+   confirmPassword: new FormControl()
+ });
+  }
+}
+
+3. now in the html file go to the form tag and add the forgroup we created a bove in the ts file. 
+<form [formGroup]="registerForm">
+  <div class="form-group">
+  //each input will contain a fromControlName and these will be set to the vaules we assigned in the ts file. 
+    <input type="text" class="form-control" placeholder="Username"  formControlName="username" >
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password"  formControlName="password" >
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Confirm Password"  formControlName="confirmPassword" >
+  </div>
+
+</form>
+
+
+
+
+
+**VALIDATION UND CUSTOM VALIDATION**
+1.TS file
+  ngOnInit() {
+ this.registerForm = new FormGroup({
+   username: new FormControl('', Validators.required),
+   password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+   confirmPassword: new FormControl('', Validators.required)
+ }, this.passwordMatchValidator);
+  }
+
+  passwordMatchValidator(p: FormGroup) {
+    return p.get('password').value === p.get('confirmPassword').value ? null : {'mismatch' : true};
+  }
+  
+  2. HTML file we use ngclass and ngif to display erros 
+    <div class="form-group" [ngClass]="{'has-error': registerForm.get('username').errors && registerForm.get('username').touched}">
+    <input type="text" class="form-control" placeholder="Username"  formControlName="username" >
+    <span class="help-block text-center" *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched">
+      **Please provide a Username**
+    </span>
+  </div>
+
+  <div class="form-group" [ngClass]="{'has-error': registerForm.get('password').errors && registerForm.get('password').touched}">
+    <input type="password" class="form-control" placeholder="Password"  formControlName="password" >
+    <span class="help-block text-center" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
+      **Please provide a password**
+    </span>
+    <span class="help-block text-center" *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched">
+      **Password must be atleast 4 charachters in length**
+    </span>
+    <span class="help-block text-center" *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched">
+      **Password has a max charachter length of 8**
+    </span>
+  </div>
+
+  <div class="form-group" [ngClass]="{'has-error': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').touched && registerForm.hasError('mismatch')}">
+    <input type="password" class="form-control" placeholder="Confirm Password"  formControlName="confirmPassword" >
+    <span class="help-block text-center" *ngIf="registerForm.get('confirmPassword').touched && registerForm.hasError('mismatch')">
+      **Password does not match the password above**
+    </span>
+  </div>

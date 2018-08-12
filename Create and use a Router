@@ -1,0 +1,54 @@
+1.all componenets should be created before creating routes as they will need to be imported use cli to create router
+ng g m app-routing --flat --module=app --spec=false
+
+2.now go into app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
+
+
+//components must be imported inorder to create routes
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AddClientComponent } from './components/add-client/add-client.component';
+import { EditClientComponent } from './components/edit-client/edit-client.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ClientDetailsComponent } from './components/client-details/client-details.component';
+
+
+
+//must import Routes above
+const routes: Routes = [
+   {path: '', component: DashboardComponent},
+   {path: 'login', component: LoginComponent},
+   {path: 'register', component: RegisterComponent},
+   {path: 'client/add', component: AddClientComponent},
+   {path: 'client/edit/:id', component: EditClientComponent},
+   {path: 'client/:id', component: ClientDetailsComponent},
+   {path: 'settings', component: SettingsComponent},
+   {path: '**', component: NotFoundComponent},
+  
+];
+
+@NgModule({
+  exports: [RouterModule],
+  imports: [
+   RouterModule.forRoot(routes)
+  ],
+  declarations: []
+})
+export class AppRoutingModule { }
+
+
+3. html file, notice we use routerLink= in our links
+ <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a routerLink="/register" class="nav-link">Register</a></li>
+        <li class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+ </ul>
+ 
+ 4.go to app.component.html and add router-outlet tags
+ <app-navbar></app-navbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

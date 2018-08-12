@@ -1,0 +1,13 @@
+1. Git init in the new direcotry you created
+2. Git clone expalepath
+3. Then cd into the folder that was created during the clone
+4. Then run npm install
+5. ng update @angular/cli --migrate-only --from=1.7.4
+This removed .angular-cli.json and created angular.json.
+
+If this leads to your project using 1.7.4, install v6 locally:
+
+npm install --save-dev @angular/cli@v6.0.0-rc.4
+And try once again to update your project with:
+
+ng update @angular/cli --migrate-only --from=1.7.4

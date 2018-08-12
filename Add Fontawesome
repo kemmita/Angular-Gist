@@ -1,0 +1,7 @@
+1. go to the terminal and run npm install font-awesome --save
+2. then go to angular-cli.json and add the style
+  "styles": [
+        "styles.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
+      ],

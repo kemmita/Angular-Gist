@@ -1,0 +1,12 @@
+1. Inside of the component templat, us the event binding method (click) to call on a method that was created in the components ts file.
+
+<button class="btn btn-primary" (click)="onCreateServer()">Add Server</button>
+
+2. In the ts file we can see the method and how the variable is being changed when the method is called
+
+export class ServerComponent implements OnInit {
+  serverCreationStatus:string = 'No server was created!';
+  onCreateServer() {
+    this.serverCreationStatus = 'Server was created.';
+  }
+}

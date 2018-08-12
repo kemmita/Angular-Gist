@@ -1,0 +1,13 @@
+1. run npm install bootstrap@4.0.0-beta.2 jquery popper.js
+2.in package.json remove ^ symbol from this "^bootstrap": "4.0.0-beta.2",
+3. in angular-cli.josn add 
+  "styles": [
+        "styles.css",
+        "../ExampleNameOfProject/node_modules/bootstrap/dist/css/bootstrap.css"
+      ],
+      "scripts": [
+        "../ExampleNameOfProject/node_modules/jquery/dist/jquery.js",
+        "../ExampleNameOfProject/node_modules/popper.js/dist/umd/popper.js",
+        "../ExampleNameOfProject/node_modules/bootstrap/dist/js/bootstrap.js"
+      ],
+4. restart server

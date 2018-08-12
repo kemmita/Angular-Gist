@@ -1,0 +1,22 @@
+export class UserComponent {
+  //properties
+  firstName = "John";
+  lastName = "Doe";
+  age = 30;
+
+  //any method you wish to run must be within the constructor or nested within another method that is in the constructor like I did below
+  constructor(){
+  //to call a method, we use the this keyword
+      this.sayHello();
+  }
+
+  sayHello(){
+    console.log(`${this.firstName}`);
+    this.birthday();
+  }
+
+  birthday(){
+    console.log(`is ${this.age}`);
+  }
+
+}

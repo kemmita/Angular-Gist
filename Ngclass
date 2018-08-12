@@ -1,0 +1,3 @@
+//using ngClass we check to see if the user is set to hide if he is the font awesome will be a plus sign in the button, else
+a minus symbol will be i the button
+<button class="btn btn-primary mb-3" (click)="toggleHide(user)"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'"></i></button>
