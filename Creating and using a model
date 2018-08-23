@@ -1,0 +1,51 @@
+1. Name the file and place it within its respective component folder. For this example, we will be placing it in the recpie directory
+and naming the file recpie.model.ts. Below is the code for the model.
+
+// If we wish to utuilize the model we must export it. 
+export class Recipe {
+  // Declare our fields. 
+  public name: string;
+  public description: string;
+  public imagePath: string;
+ // use a contructor to initialize the fields, this may not be neccesarry with dynamic data.
+  constructor(name: string, description: string, imagePath: string) {
+    this.name = name;
+    this.description = description;
+    this.imagePath = imagePath;
+  }
+}
+
+
+2. Now we will head over to out recpies-list.ts file and import the model we created.
+
+import { Component, OnInit } from '@angular/core';
+// Notice how we must prefix the file pathe of import with ".." this is to ensure that we move out of the current directory and head 
+to the correct directory which is holding our model. 
+import { Recipe } from '../recipe.model';
+@Component({
+  selector: 'app-recipes-list',
+  templateUrl: './recipes-list.component.html',
+  styleUrls: ['./recipes-list.component.css']
+})
+export class RecipesListComponent implements OnInit {
+  // We now create a recipes field and make it of type Recipe model array. Sice we utuilized a constructor in the model file, we can
+  input static data here and call it in the template using string interplation. 
+  recipes: Recipe[] = [
+    new Recipe('German', 'german recipe', 'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_960_720.jpg')
+  ] ;
+  constructor() { }
+  ngOnInit() {
+  }
+}
+
+3. Below we use string interpelation to display our data from the ts file
+    // Notice how we must use ngFor in the anchor tag so that the recpie data can be displayed.
+    <a href="#" class="list-group-item clearfix" *ngFor="let recipe of recipes">
+        <div class="pull-left">
+            <h4 class="list-group-item-heading">{{recipe.name}}</h4>
+            <p class="list-group-item-text">{{recipe.description}}</p>
+        </div>
+        <span class="pull-right">
+          <img src="{{recipe.imagePath}}" alt="" class="img-responisve" style="max-height: 50px;">
+        </span>
+      </a>
