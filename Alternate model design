@@ -1,0 +1,18 @@
+1. This code below will keep us from having to write out the normal model code.
+
+export class Ingredient {
+constructor(public name: string, amount: number) {}
+}
+
+
+2. Below is a typical model design the above code does the same thing.
+
+export class Ingredient {
+public name: string;
+public amount: number;
+
+constructor(name: string, amount: number) {
+  this.name = name;
+  this.amount = amount;
+}
+}
