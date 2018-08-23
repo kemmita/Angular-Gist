@@ -1,7 +1,7 @@
 1. This code below will keep us from having to write out the normal model code.
 
 export class Ingredient {
-constructor(public name: string, amount: number) {}
+constructor(public name: string, public amount: number) {}
 }
 
 
