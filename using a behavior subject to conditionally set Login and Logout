@@ -1,0 +1,81 @@
+1. After you have esnured that your login is working, create a new service title logincondition.service, remember to include this in 
+your app.modules.
+
+2. We will want to create a new Behavior Subject in the service we created above and we can inject this Behavior Subject as an observable
+using dp injection
+
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginconditionService {
+  private loggedinSource = new BehaviorSubject<boolean>(false);
+  currentLoggedInStatus = this.loggedinSource.asObservable();
+
+  constructor() { }
+
+  changeLoggedInStatus(login: boolean) {
+    this.loggedinSource.next(login);
+  }
+
+}
+
+3. In our login component we will have a click function that will set our local bool var to true
+
+// HTML
+<form #loginForm="ngForm" class="form-signin" (ngSubmit)="login()">
+
+//TS
+export class LoginComponent implements OnInit {
+  // the values passed in from the form must be passed in as objects. So lets create an empty object below
+  model: any = {};
+  // We need to declare a local loggedIn bool
+  loggedIn: boolean;
+  
+  //Use dependency injection to inject the service
+  constructor(private authService: AuthService, private loginCondition: LoginconditionService) { }
+
+  //Use nGOnInit to set the value of the local loggedIn to that of the loggedIn var within the service.
+  ngOnInit() {
+    this.loginCondition.currentLoggedInStatus.subscribe(login => this.loggedIn = login);
+  }
+  
+  login() {
+    this.authService.login(this.model).subscribe(next => {
+      console.log('Logged in successfully');
+      // We inject the changeLoggedInStatus method from our service and change the loggedIn var to true.
+      this.loginCondition.changeLoggedInStatus(true);
+    }, error => {
+      console.log('Failed to login');
+    });
+  }
+}
+
+4. Now that we have altered the login status using the component above, we will again want to observe the behavior subject so that
+we can set our loggedIn var appropriatley.
+
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
+})
+export class NavbarComponent implements  OnInit {
+
+  loggedIn: boolean;
+  constructor(private loginCondition: LoginconditionService) { }
+  ngOnInit() {
+  // Subscribing to the observable from the service injected to our component, we will be able to set the local loggedIn var correctly.
+    this.loginCondition.currentLoggedInStatus.subscribe(login => this.loggedIn = login);
+  }
+}
+
+5. Having subscribed to the currentLoggedInStatus we will be able to conditional display our html elements.
+
+  <li class="nav-item active" *ngIf="loggedIn !== true">
+              <a class="nav-link" routerLink="/login">Login<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" *ngIf="loggedIn === true">
+                <a class="nav-link" routerLink="/login">Logout<span class="sr-only">(current)</span></a>
+            </li>
