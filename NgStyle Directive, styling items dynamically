@@ -1,20 +1,37 @@
 1. Ts file
+```ts
+import { Component, OnInit, Input } from '@angular/core';
 
+@Component({
+  selector: 'app-server',
+  templateUrl: './server.component.html',
+  styleUrls: ['./server.component.css']
+})
 export class ServerComponent implements OnInit {
-// Set our variable initialy to offline
-  serverStatus: string = 'offline';
-  constructor() {
-// In our constructor set our variable to either offline or online
-    this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
+  public servers: object[] = [
+    {
+      serverName: 'Server One',
+      serverStatus: 'active'
+    },
+    {
+      serverName: 'Server Two',
+      serverStatus: 'inactive'
+    }
+  ]
+
+  constructor() { }
+
+  ngOnInit(): void {
+
   }
-// Create a method that returns a css color property 
-  getColor() {
-    return this.serverStatus === 'online' ? 'green' : 'red';
+
+  getColor(serverStatus: string){
+    return serverStatus === 'active' ? 'green' : 'red';
   }
+
 }
-
-
+```
 2. Html file
-
-//using the ngStyle directive, we set the backgroundColor using th method we created above.
-<p [ngStyle]="{backgroundColor: getColor()}">{{ serverStatus }}</p>
+```html
+<p *ngFor='let server of servers' [ngStyle]="{backgroundColor: getColor(server.serverStatus)}">{{server.serverName}}</p>
+```
