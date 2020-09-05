@@ -1,7 +1,7 @@
 1. Services are used to keep us from writing repeat code, if we are going to need a specfic functionality throughtout our application,
 we can creat and use a service inside of our desired componenets
 2. create a folder called services and keep your services here
-auth.services.ts is how you name a service
+auth.services.ts 
 ```ts
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
