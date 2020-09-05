@@ -2,7 +2,7 @@
 we can creat and use a service inside of our desired componenets
 2. create a folder called services and keep your services here
 auth.services.ts is how you name a service
-
+```ts
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
@@ -24,10 +24,11 @@ constructor(private http: Http) {}
   }
 
 }
-
+```
 
 
 3. now go to app.module.ts to add the service we wish to use
+```ts
 import { AuthService } from './_services/auth.service';
 
 
@@ -35,8 +36,9 @@ import { AuthService } from './_services/auth.service';
  providers: [
     AuthService
   ],
-
+```
 4.now go to the componenet and use the service
+```ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 
@@ -60,4 +62,4 @@ model: any = {};
     });
   }
 }
-
+```ts
